@@ -1,10 +1,13 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { useForm } from '../hooks/useForm'
 
 
 
 export default function Login() {
+  const history = useHistory()
+
   const authForLogin = useAuth()
   const { formInState, handleFormToBeChange } = useForm({ email: '', password: ''})
 
@@ -12,6 +15,8 @@ export default function Login() {
     try {
       e.preventDefault()
       authForLogin.login(formInState.email, formInState.password)
+      history.replace('/post')
+
 
     } catch (error) {
       console.error(error)
@@ -30,7 +35,7 @@ export default function Login() {
       <br />
       
       <label htmlFor="password">
-        Email
+        Password
         <input type="password" id='password' name='password' value={formInState.password} onChange={handleFormToBeChange} />
       </label>
       <br />
