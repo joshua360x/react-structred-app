@@ -8,7 +8,7 @@ export default function ViewEverything() {
     <div>
       <>
         {entries.map(({id, post, user}) => (
-          <Link key={id}>
+          <Link to={`/all/:${id}`} key={id}>
             <ul>
           <li>Post: {post}</li>
           <li>User:{user}</li>

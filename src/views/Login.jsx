@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { useForm } from '../hooks/useForm'
+import { signInUser } from '../utils/fetchUtils'
 
 
 
@@ -17,10 +18,13 @@ export default function Login() {
 
 
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     try {
       e.preventDefault()
-      authForLogin.login(formInState.email, formInState.password)
+      // authForLogin.login(formInState.email, formInState.password)
+      const newUser = await signInUser(formInState.email, formInState.password)
+      await authForLogin.setUser(newUser)
+      console.log('user :>> ', authForLogin.user);
       history.replace(from)
 
 
