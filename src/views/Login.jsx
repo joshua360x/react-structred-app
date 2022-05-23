@@ -1,4 +1,5 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { useForm } from '../hooks/useForm'
@@ -7,15 +8,20 @@ import { useForm } from '../hooks/useForm'
 
 export default function Login() {
   const history = useHistory()
-
+  const location = useLocation()
   const authForLogin = useAuth()
   const { formInState, handleFormToBeChange } = useForm({ email: '', password: ''})
+  const { from } = location.state || { from: { pathname: '/' } };
+
+
+
+
 
   function handleLogin(e) {
     try {
       e.preventDefault()
       authForLogin.login(formInState.email, formInState.password)
-      history.replace('/post')
+      history.replace(from)
 
 
     } catch (error) {

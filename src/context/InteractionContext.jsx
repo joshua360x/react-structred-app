@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useEffect, useReducer } from 'react';
+import { createClient } from '@supabase/supabase-js'
+
 
 function postReducer(entries, { type, payload }) {
   switch (type) {
@@ -15,8 +17,15 @@ function postReducer(entries, { type, payload }) {
 export const InteractionContext = createContext();
 
 function InteractionProvider({ children }) {
+  
   const [entries, dispatch] = useReducer(postReducer, [])
   useEffect(() => {
+    async function loadEverything() {
+const supabaseUrl = 'https://nhbazqqortcneqwecrjp.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzOTUwNzU3MywiZXhwIjoxOTU1MDgzNTczfQ.ItAD5AYhCLq3yVOxHVfShkrOdhiFsmpg3uT9tBIISV0'
+const supabase = createClient(supabaseUrl, supabaseKey)
+
+    }
     const entries = [
       {
         id:0,
