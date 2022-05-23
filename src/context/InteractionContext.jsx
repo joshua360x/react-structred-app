@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useReducer } from 'react';
-import { createClient } from '@supabase/supabase-js'
+// import { createClient } from '@supabase/supabase-js'
+import { getBlogPosts } from '../utils/fetchUtils';
 
 
 function postReducer(entries, { type, payload }) {
@@ -24,24 +25,35 @@ function InteractionProvider({ children }) {
 // const supabaseUrl = 'https://nhbazqqortcneqwecrjp.supabase.co'
 // const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzOTUwNzU3MywiZXhwIjoxOTU1MDgzNTczfQ.ItAD5AYhCLq3yVOxHVfShkrOdhiFsmpg3uT9tBIISV0'
 // const supabase = createClient(supabaseUrl, supabaseKey)
-
+const see = await getBlogPosts()
+// let arr = []
+// arr.push({id: see.id, post: see.posts,  email: 'cheeseGuy123@cheese.co', })
+const entries = [
+  {
+    id: see.id, post: see.posts,  email: 'cheeseGuy123@cheese.co',
+  }
+]
+// entries.push({id: see.id, post: see.posts,  email: 'cheeseGuy123@cheese.co', })
+dispatch({
+  type: 'resetBackToNormal',
+  payload: entries,
+});
+console.log('see :>> ', see);
     }
-    const entries = [
-      {
-        id:0,
-        post: 'first post globally',
-        email: 'cheeseGuy123@cheese.co',
-
-      }
-    ]
-    
-    dispatch({
-      type: 'resetBackToNormal',
-      payload: entries,
-    });
+    loadEverything()
   }, [])
+
+
+  function addPost(post) {
+    const payload = {
+      ...post,
+    };
+    dispatch({type: 'create', payload})
+    return payload
+  }
+
   
-  return <InteractionContext.Provider value={{entries}}>
+  return <InteractionContext.Provider value={{entries, addPost}}>
     {children}
   </InteractionContext.Provider>;
 }

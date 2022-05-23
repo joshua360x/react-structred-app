@@ -1,14 +1,19 @@
 import React from 'react'
+import { useData } from '../context/InteractionContext'
 import { useAuth } from '../hooks/useAuth'
 import { useForm } from '../hooks/useForm'
 
 export default function Post() {
   const authForLogin = useAuth()
+  const postMethod = useData()
 
   const { formInState, handleFormToBeChange } = useForm({ post: '', email: authForLogin.user.email})
 
   function handlePost(e) {
+    console.log('hey I am hit');
     e.preventDefault()
+    console.log('formInState.post :>> ', formInState.post);
+    postMethod.addPost(formInState.post)
   }
 
   return (

@@ -21,9 +21,14 @@ async function fetchUserProfile(user_id) {
   return response;
 }
 
-async function getblogPosts() {
+async function createPost(post) {
+const response = await supabase.from('blog').insert({posts: post})
+return response
+}
+
+async function getBlogPosts() {
   const response = await supabase.from('blog').select()
-  return response
+  return response.data[0]
 }
 
 async function signInUser(email, password) {
@@ -32,4 +37,4 @@ async function signInUser(email, password) {
   return response.user;
 }
 
-export { fetchUserProfile, signInUser };
+export { fetchUserProfile, signInUser, getBlogPosts };
