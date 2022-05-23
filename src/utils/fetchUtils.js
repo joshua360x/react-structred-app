@@ -21,6 +21,11 @@ async function fetchUserProfile(user_id) {
   return response;
 }
 
+async function getblogPosts() {
+  const response = await supabase.from('blog').select()
+  return response
+}
+
 async function signInUser(email, password) {
   const response = await supabase.auth.signIn({ email, password });
   console.log('response :>> ', response);

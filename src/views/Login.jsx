@@ -24,7 +24,7 @@ export default function Login() {
       // authForLogin.login(formInState.email, formInState.password)
       const newUser = await signInUser(formInState.email, formInState.password)
       await authForLogin.setUser(newUser)
-      console.log('user :>> ', authForLogin.user);
+      // console.log('user :>> ', authForLogin.user);
       history.replace(from)
 
 

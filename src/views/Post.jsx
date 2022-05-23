@@ -1,9 +1,11 @@
 import React from 'react'
+import { useAuth } from '../hooks/useAuth'
 import { useForm } from '../hooks/useForm'
 
 export default function Post() {
+  const authForLogin = useAuth()
 
-  const { formInState, handleFormToBeChange } = useForm({ post: '', user: ''})
+  const { formInState, handleFormToBeChange } = useForm({ post: '', email: authForLogin.user.email})
 
   function handlePost(e) {
     e.preventDefault()
