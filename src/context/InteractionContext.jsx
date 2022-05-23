@@ -32,7 +32,22 @@ function InteractionProvider({ children }) {
     });
   }, [])
   
-  return <InteractionProvider value={{entries}}>
+  return <InteractionContext.Provider value={{entries}}>
     {children}
-  </InteractionProvider>;
+  </InteractionContext.Provider>;
 }
+
+
+
+const useData = () => {
+  const context = useContext(InteractionContext)
+  if (context === undefined) {
+    throw new Error('useData must be used within a InteractionProvider')
+  }
+  return context
+};
+
+export { InteractionProvider, useData }
+
+
+
